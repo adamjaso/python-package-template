@@ -1,0 +1,30 @@
+from os import path
+from setuptools import setup, find_packages
+from {{ name }} import __version__
+
+
+dirname = path.realpath(path.dirname(__file__))
+with open(path.join(dirname, 'requirements.txt')) as f:
+    reqs = [l for l in f.read().strip().split('\n') if not l.startswith('-')]
+
+readme = path.join(dirname, 'README.md')
+
+
+setup(
+    name='{{ name }}',
+    version=__version__,
+    description='{{ description }}',
+    author='{{ author }}',
+{%- if email %}
+    author_email='{{ email }}',
+{% endif %}
+{%- if license_title %}
+    license='{{ license_title }}',
+{% endif -%}
+    long_description=open(readme).read(),
+    packages=find_packages(),
+    install_requires=reqs,
+{%- if url %}
+    url='{{ url }}',
+{% endif %}
+)
